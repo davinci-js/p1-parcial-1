@@ -1,19 +1,15 @@
 'use strict';
 
 /*
- * APELLIDO, NOMBRE | APELLIDO, NOMBRE
+ * MENDEZ MAXIMO
  */
 
-/**
- * Llamada desde un boton. Pide los datos para un disco.
- */
-function cargar() {
-    // TODO:
+let biblioteca = new Biblioteca();
+
+function cargarDisco() {
+  biblioteca.registrarDisco();
 }
 
-/**
- * Llamada desde un boton. Muestra todos los discos disponibles.
- */
-function mostrar() {
-    // TODO
-};
+function mostrarBiblioteca() {
+  biblioteca.show("#discos");
+}
