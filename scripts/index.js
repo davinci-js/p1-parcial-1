@@ -4,33 +4,42 @@
  * SORGETTI TOMÁS - PARCIAL 1
  */
 
-// DiscoDto
-// id: number;
-// nombre: string;
-// artista: string;
-// portada: string;
-// pistas: PistaDto[]
 
-// PistaDto
-// id: number;
-// nombre: string;
-// duracion: number;
+
+const discos = [];
 
 /**
  * Llamada desde un boton. Pide los datos para un disco.
  */
 function cargar() {
-  const disco = new DiscoDto();
+  const disco = new Disco();
 
   // pedirle los datos al usuario
-  //TODO => si el id ya existe debería de pedirlo denuevo
-  disco.id = pedirDato("Ingresá el id del disco", "number");
-  disco.nombre = pedirDato("Ingresá el nombre del disco", "string");
-  disco.artista = pedirDato("Ingresá el artista del disco", "string");
-  disco.portada = pedirDato("Ingresá la imágen de portada del disco", "string");
-  //TODO => para pedir las pistas debe ser un bucle
+  disco.id = pedirDato("Ingresá el id del disco", true);
+  disco.nombre = pedirDato("Ingresá el nombre del disco", false);
+  disco.artista = pedirDato("Ingresá el artista del disco", false);
+  disco.portada = pedirDato("Ingresá la imágen de portada del disco", false);
 
-  console.log("DISCO", disco);
+  const pistas = [];
+  function pedirPistas() {
+    // pido los datos
+    const nombre = pedirDato("Ingresá el nombre de la pista", false);
+    const duracion = pedirDato("Ingresá la duración de la pista", true);
+
+    // agrego un objeto a la lista de pistas
+    pistas.push({ nombre, duracion });
+
+    // preguntar si se quiere cargar otra pista
+    if (confirm("¿Desea cargar otra pista?")) {
+      pedirPistas();
+    }
+
+    // agrego las pistas al disco
+    disco.pistas = pistas;
+  }
+  pedirPistas();
+
+  discos.push(disco);
 }
 
 /**
@@ -40,28 +49,31 @@ function mostrar() {
   // TODO
 }
 
-/**
- * Recive un dato y lo valida, si no es correcto, repite el proceso.
- * @param {string} msg
- * @param {string} tipoDeDato
- * @returns {string | number}
- */
-function pedirDato(msg, tipoDeDato) {
+function pedirDato(msg, isNumber) {
+  // se pide un dato
   const dato = prompt(msg);
-  let error;
+  let datoValidado;
 
-  //* Divide si es un string o un number
-  if (tipoDeDato === "number") {
-    error = validateNumber(dato);
-  } else if (tipoDeDato === "string") {
-    error = validateString(dato);
+  // se valida el dato, si es correcto, se guarda en datoValido
+  try {
+    if (isNumber) {
+      datoValidado = validateNumber(dato);
+      // const number = validateNumber(dato);
+      // busca si el id ya existe en la lista, si existe, se lanza un error
+      // const idExists = discos.some((disco) => disco.id === number);
+      // if (idExists) {
+      //   throw new Error("El id de ese disco ya existe");
+      // } else {
+      //   datoValidado = number;
+      // }
+    } else {
+      datoValidado = validateString(dato);
+    }
+  } catch (error) {
+    // si es incorrecto se lanza el error y se repite el proceso
+    alert(error.message);
+    return pedirDato(msg, isNumber);
   }
 
-  //* Si hay un error, repite el proceso
-  if (error) {
-    alert(error);
-    pedirDato(msg, tipoDeDato);
-  }
-
-  return dato;
+  return datoValidado;
 }
