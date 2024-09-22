@@ -8,5 +8,5 @@ class Disco {
     this.pistas = pistas;
   }
 
-  // Metodos getter y setters
+  // Metodos getters y setters
 }
