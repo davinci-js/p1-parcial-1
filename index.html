@@ -12,13 +12,8 @@
     />
     <link rel="shortcut icon" href="favicon.ico" />
     <link rel="stylesheet" href="styles/styles.css" />
-
-    <script src="scripts/entities/disco.entity.js"></script>
-    <script src="scripts/validators/number.validator.js"></script>
-    <script src="scripts/validators/string.validator.js"></script>
-    <script src="scripts/handlers/datos.handler.js"></script>
-    <script src="scripts/handlers/pistas.handler.js"></script>
-    <script src="scripts/index.js"></script>
+    <!-- scripts -->
+    <script type="module" src="scripts/index.js"></script>
   </head>
   <body>
     <header>
@@ -27,8 +22,8 @@
     </header>
     <main>
       <h2>Mis discos</h2>
-      <button onclick="cargar();">Cargar nuevo disco</button>
-      <button onclick="mostrar();">Mostrar discos</button>
+      <button id="cargar">Cargar nuevo disco</button>
+      <button id="mostrar">Mostrar discos</button>
       <div id="discos">
         <!--
                     Aca podrian mostrar los discos

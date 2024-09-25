@@ -1,4 +1,4 @@
-class Disco {
+export class Disco {
   constructor(id, nombre, artista, duracion, portada, pistas) {
     this.id = id;
     this.nombre = nombre;
@@ -7,6 +7,4 @@ class Disco {
     this.portada = portada;
     this.pistas = pistas;
   }
-
-  // Metodos getters y setters
 }
